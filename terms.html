@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — MIOExit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .legal { max-width: 780px; margin: 0 auto; padding: 120px 24px 80px; }
+    .legal h1 { font-size: 2rem; margin-bottom: 8px; }
+    .legal .effective { color: var(--text-secondary); margin-bottom: 48px; }
+    .legal h2 { font-size: 1.25rem; margin-top: 40px; margin-bottom: 12px; color: var(--accent-bright); }
+    .legal p, .legal li { color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+    .legal ul { padding-left: 24px; margin-bottom: 16px; }
+    .legal a { color: var(--accent-bright); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">MIO<span>Exit</span></a>
+      <a href="/#pricing" class="nav-cta">See Pricing</a>
+    </div>
+  </nav>
+
+  <div class="legal">
+    <h1>Terms of Service</h1>
+    <p class="effective">Effective: March 12, 2026</p>
+
+    <h2>1. Service Description</h2>
+    <p>MIOExit ("we", "us", "our") provides a done-for-you content extraction and migration service for Membership.io (formerly Searchie) users. We extract videos, files, playlists, folder structures, and member data from your Membership.io account and deliver them to the hosting provider of your choice.</p>
+    <p>We provide <strong>content extraction only</strong>. We do not build, configure, or manage membership platforms, websites, or course delivery systems. We do not provide ongoing hosting.</p>
+
+    <h2>2. Account Access</h2>
+    <p>To perform the migration, we require temporary admin-level access to your Membership.io account. Access is granted through one of two methods:</p>
+    <ul>
+      <li><strong>Team member invite</strong> (Grow and Scale plans): You invite us as a team member. We receive our own login. You remove us when migration is complete.</li>
+      <li><strong>Secure credential sharing</strong> (Start plan): We use a one-time, self-destructing link to receive your credentials. You change your password when migration is complete.</li>
+    </ul>
+    <p>We will <strong>never</strong> access your billing settings, delete any content from your Membership.io account, or modify your live content. We copy — we never alter or remove.</p>
+
+    <h2>3. Pricing and Payment</h2>
+    <p>All prices are fixed and based on your total video count, confirmed during the free audit. Payment is due before migration begins. We accept payment via Stripe.</p>
+    <ul>
+      <li><strong>Starter:</strong> Up to 200 videos — $497</li>
+      <li><strong>Professional:</strong> 200–1,000 videos — $997</li>
+      <li><strong>Enterprise:</strong> 1,000–5,000 videos — $1,997</li>
+      <li><strong>Custom:</strong> 5,000+ videos — contact us for pricing</li>
+    </ul>
+
+    <h2>4. The "Every Single File" Guarantee</h2>
+    <p>We guarantee extraction of every file in your Membership.io account that has a valid, accessible source URL. If any extractable file is missing after migration, we will re-run the migration at no additional cost.</p>
+    <p><strong>Exclusions:</strong> Some files in Membership.io accounts may not have valid source URLs — these are typically failed uploads, unprocessed recordings, or files that never completed transcoding. We will identify these files in your audit report and verification report. These files are excluded from the guarantee because they cannot be extracted by any method.</p>
+    <p>The guarantee is valid for <strong>60 days</strong> from the date we deliver your verification report.</p>
+
+    <h2>5. Refund Policy</h2>
+    <ul>
+      <li><strong>Before migration begins:</strong> Full refund, no questions asked.</li>
+      <li><strong>After migration begins:</strong> If we are unable to extract at least 80% of your library's extractable files, you receive a full refund.</li>
+      <li><strong>After migration is complete:</strong> No refund once you have confirmed receipt of your verification report and files.</li>
+    </ul>
+
+    <h2>6. Data Handling and Confidentiality</h2>
+    <p>Your content is yours. We do not retain copies of your videos, files, or member data after migration is complete.</p>
+    <ul>
+      <li>Transfer mapping files (which track old MIO IDs to new hosting IDs) are retained for 60 days to support the guarantee, then deleted.</li>
+      <li>We will execute a mutual NDA before beginning any migration if requested.</li>
+      <li>Member data (emails, access levels) is extracted at your direction and delivered only to you. We do not use, share, or retain your member data.</li>
+    </ul>
+
+    <h2>7. Your Responsibilities</h2>
+    <ul>
+      <li>Providing accurate account access through one of the methods described in Section 2.</li>
+      <li>Ensuring you have the legal right to export your content and member data from Membership.io.</li>
+      <li>Revoking our access (removing team member or changing password) after migration is complete.</li>
+      <li>Verifying the migration report and confirming completeness within 60 days.</li>
+    </ul>
+
+    <h2>8. Limitation of Liability</h2>
+    <p>Our total liability for any claim arising from this service is limited to the amount you paid for the migration. We are not liable for:</p>
+    <ul>
+      <li>Content that is inaccessible or corrupted within Membership.io before we begin.</li>
+      <li>Changes Membership.io makes to their platform, API, or CDN during or after migration.</li>
+      <li>Issues with your destination hosting provider (BunnyCDN, S3, Cloudflare, etc.).</li>
+      <li>Loss of business revenue, even if related to delays in migration.</li>
+    </ul>
+
+    <h2>9. Modifications</h2>
+    <p>We may update these terms. Changes take effect when posted to this page. Your continued use of the service after changes constitutes acceptance.</p>
+
+    <h2>10. Contact</h2>
+    <p>Questions about these terms? Email us at <a href="mailto:migrate@mioexit.com">migrate@mioexit.com</a>.</p>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="/" class="nav-logo">MIO<span>Exit</span></a>
+        <div class="footer-links">
+          <a href="/terms.html">Terms of Service</a>
+          <a href="/privacy.html">Privacy Policy</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 MIOExit. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

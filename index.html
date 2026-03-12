@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership.io Migration Service — Export All Your Videos, Files &amp; Members | MIOExit</title>
+  <meta name="description" content="Done-for-you Membership.io export and migration service. We extract every video, course, playlist, and member record from your MIO account — so you own your content. Free audit.">
+  <meta name="keywords" content="membership.io export, membership.io migration, searchie export, searchie migration, export membership.io videos, leave membership.io, membership.io download content, membership.io download all files, move off membership.io, membership site migration service, how to leave membership.io">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Membership.io Migration Service — Export All Your Videos, Files & Members">
+  <meta property="og:description" content="The only done-for-you Membership.io migration service. We extract every video, course, and member from your MIO account. Free audit. Zero content lost.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://mioexit.com/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Structured Data: LocalBusiness + Service -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "MIOExit — Membership.io Migration Service",
+    "description": "Done-for-you migration service that exports all videos, courses, playlists, and member data from Membership.io (formerly Searchie) to your own hosting.",
+    "provider": {
+      "@type": "Organization",
+      "name": "MIOExit"
+    },
+    "serviceType": "Data Migration",
+    "areaServed": "Worldwide",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Migration Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Free Migration Audit",
+            "description": "Complete inventory of your Membership.io account — hubs, videos, playlists, and members cataloged with file counts and sizes."
+          },
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Structured Data: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long does a Membership.io migration take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Depends on library size. A 500-video library typically takes 2-3 days. Larger libraries (2,000+) take about a week. The audit itself takes 24 hours."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does my Membership.io content go after migration?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Wherever you want. Most clients choose BunnyCDN (fast, global, ~$13/mo for terabytes of video) but we can deliver to S3, Cloudflare, your own servers, or any storage you prefer. You get standard MP4 files that work everywhere."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will my members lose access during the Membership.io migration?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. We run the migration in parallel — your MIO account stays fully active until you're ready to switch. Zero downtime."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I export all my Membership.io videos at once?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Membership.io does not offer bulk export. You would have to download files one at a time. Our service automates the entire extraction — every video, playlist, folder, and member record — in days, not months."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens to my data if I cancel Membership.io?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "According to Membership.io's own help docs, data cannot be retrieved once your account is cancelled. That's why you must export everything before cancelling — and that's exactly what our service does."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does a Membership.io migration cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Fixed pricing based on library size: $497 for up to 200 videos, $997 for 200-1,000 videos, $1,997 for 1,000-5,000 videos. No hourly billing, no surprises. Libraries over 5,000 videos get custom pricing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you migrate Membership.io to Kajabi, Circle, or Skool?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We handle the extraction — getting your content out of MIO as standard MP4 files. From there, you can upload to any platform you choose, or we can deliver directly to video hosting like BunnyCDN, S3, or Cloudflare."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you need my Membership.io login?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We need admin access, but you never share your password. On MIO's Grow or Scale plan, you invite us as a team member — we get our own login, you remove us when done. On the Start plan, we use a secure one-time link that self-destructs after viewing. We never touch billing, delete anything, or modify your live content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Searchie migration work the same as Membership.io migration?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Searchie rebranded to Membership.io in 2024. Our tools work with both. If your account is at app.membership.io or app.searchie.io, we can migrate your content."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">MIO<span>Exit</span></div>
+      <a href="#pricing" class="nav-cta">See Pricing</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-badge">The only Membership.io export &amp; migration service</div>
+      <h1>Trapped on Membership.io?<br><span class="hero-accent">We'll get you out.</span></h1>
+      <p class="hero-sub">We extract every video, course, playlist, and member record from your MIO account and deliver them to your hosting — in days, not months. If anything is missing, we re-run the migration free until every file is accounted for.</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn btn-primary">See Pricing</a>
+        <a href="#how" class="btn btn-ghost">See How It Works</a>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-stat">
+          <strong>10,177</strong>
+          <span>Files migrated</span>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-stat">
+          <strong>95</strong>
+          <span>Hubs extracted</span>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-stat">
+          <strong>2.6 TB</strong>
+          <span>Content moved</span>
+        </div>
+        <div class="proof-divider"></div>
+        <div class="proof-stat">
+          <strong>$0</strong>
+          <span>Content lost</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PROBLEM / STAKES -->
+  <section class="stakes">
+    <div class="container">
+      <div class="stakes-grid">
+        <div class="stakes-content">
+          <p class="section-label">The problem</p>
+          <h2>You built your business on Membership.io.<br>Now it's holding you hostage.</h2>
+          <p>You've poured years of work into your courses. Hundreds of videos. Carefully organized hubs and playlists. An entire library that represents your expertise — living on a platform you no longer want to be on.</p>
+          <p><strong>You know you need to move.</strong> But when you try? There's no "Export Everything" button. No migration path. Just the sinking feeling that your content is trapped — and every month you stay is another $99–$199 down the drain.</p>
+          <p>We know that feeling. Because we were in the exact same spot.</p>
+        </div>
+        <div class="stakes-cards">
+          <div class="pain-card">
+            <div class="pain-icon">&#x1F512;</div>
+            <h3>"Switching feels overwhelming. I don't want to lose everything."</h3>
+            <p>There's no bulk export. No migration tool. You'd have to download every single file, one at a time, and rebuild from scratch. The fear of migration holds most people back — even when they know they need to leave.</p>
+          </div>
+          <div class="pain-card">
+            <div class="pain-icon">&#x1F4B8;</div>
+            <h3>"That level of dependency has started to feel far too risky."</h3>
+            <p>Your income is tied to a platform you don't control. The price keeps climbing. The features don't keep up. But leaving means risking your entire content library. So you keep paying.</p>
+          </div>
+          <div class="pain-card">
+            <div class="pain-icon">&#x23F3;</div>
+            <h3>"I now have days and days of work ahead of me."</h3>
+            <p>Every course creator who's tried to migrate manually says the same thing. Manual effort is where most membership site owners get stuck and burn out. The migration only gets bigger the longer you wait.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VOICE OF CUSTOMER — "You" Magic Bullet Trick -->
+  <section class="voc-strip">
+    <div class="container">
+      <div class="voc-inner">
+        <p class="voc-lead">Sound familiar?</p>
+        <div class="voc-bullets">
+          <p>Are you <strong>frustrated</strong> because switching platforms feels overwhelming — and you're terrified of losing everything you've built?</p>
+          <p>Are you <strong>finding</strong> that your entire business depends on a platform you no longer trust — but leaving feels like burning it all down?</p>
+          <p>Are you <strong>feeling</strong> like you've got days and days of work ahead of you just to get your own content back?</p>
+        </div>
+        <p class="voc-kicker">You're not alone. Thousands of course creators are quietly looking for a way out. We were one of them.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMPATHY + GUIDE -->
+  <section class="guide">
+    <div class="container">
+      <div class="guide-inner">
+        <p class="section-label">Our story</p>
+        <h2>We had the same problem. So we solved it.</h2>
+        <p class="guide-lead">We ran a membership with 10,000+ videos on Membership.io. When it was time to leave, we realized there was no clean way out. No export tool. No migration service. Nobody to call. So we spent months building the solution ourselves — and now we're offering it to you.</p>
+        <div class="guide-stats">
+          <div class="guide-stat">
+            <div class="stat-number">10,177</div>
+            <div class="stat-label">Videos we migrated from our own MIO account</div>
+          </div>
+          <div class="guide-stat">
+            <div class="stat-number">95</div>
+            <div class="stat-label">Hubs moved — every one intact</div>
+          </div>
+          <div class="guide-stat">
+            <div class="stat-number">2.6 TB</div>
+            <div class="stat-label">Of content — fully in our hands</div>
+          </div>
+        </div>
+        <div class="guide-quote">
+          <blockquote>"We went from paying $199/month for a platform we'd outgrown to owning every single file ourselves. Every video, every playlist, every folder — moved in days, not months. We just wish someone had done it for us."</blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PLAN -->
+  <section class="plan" id="how">
+    <div class="container">
+      <p class="section-label">The escape plan</p>
+      <h2>Three steps. Zero stress.</h2>
+      <div class="plan-grid">
+        <div class="plan-step">
+          <div class="step-number">01</div>
+          <h3>We Count Everything</h3>
+          <p>Fill out the form below. We connect to your MIO account, run our automated catalog, and come back with your exact video count, library size, and confirmed tier — so you know the price before you pay a cent.</p>
+          <div class="step-tag">Free count — no commitment</div>
+        </div>
+        <div class="plan-step">
+          <div class="step-number">02</div>
+          <h3>We Extract &amp; Transfer</h3>
+          <p>We move every video, every hub, every playlist off MIO and into your hands. Want it on BunnyCDN? S3? Your own servers? We'll put it wherever you want. Your folder structure and organization come with it. Nothing manual. Nothing missed.</p>
+          <div class="step-tag">Fully automated — no manual work</div>
+        </div>
+        <div class="plan-step">
+          <div class="step-number">03</div>
+          <h3>You Own It Forever</h3>
+          <p>Your videos live on your servers now. Embed them anywhere — WordPress, Kajabi, Circle, your own site. Cancel MIO and never look back. We hand you the keys and a complete map of where everything went.</p>
+          <div class="step-tag">Your content, your rules</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED — Benefit Magic Bullet Trick -->
+  <section class="included">
+    <div class="container">
+      <p class="section-label">What you get</p>
+      <h2>Everything moves. Nothing gets left behind.</h2>
+      <div class="included-grid">
+        <div class="included-item">
+          <div class="check">&#x2713;</div>
+          <div>
+            <h4>Every Video — Full Quality</h4>
+            <p>Every single video extracted in full resolution as standard MP4 files. No downloading one at a time. No compressed previews. Files that work anywhere, forever.</p>
+          </div>
+        </div>
+        <div class="included-item">
+          <div class="check">&#x2713;</div>
+          <div>
+            <h4>Your Entire Organization</h4>
+            <p>Every hub, folder, and collection preserved exactly as you built it — even if you have thousands of files across dozens of courses.</p>
+          </div>
+        </div>
+        <div class="included-item">
+          <div class="check">&#x2713;</div>
+          <div>
+            <h4>Playlists &amp; Ordering</h4>
+            <p>Every playlist with its exact sequence so your members see the same content in the same order — without rebuilding anything from memory.</p>
+          </div>
+        </div>
+        <div class="included-item">
+          <div class="check">&#x2713;</div>
+          <div>
+            <h4>Member Data Export</h4>
+            <p>Emails, access levels, subscription status — your member list comes with you so you never lose the audience you've spent years building.</p>
+          </div>
+        </div>
+        <div class="included-item">
+          <div class="check">&#x2713;</div>
+          <div>
+            <h4>Migration Verification Report</h4>
+            <p>Every file mapped — old MIO location to new location — so you can verify everything is exactly right before you cancel MIO. Nothing is ever a mystery.</p>
+          </div>
+        </div>
+        <div class="included-item">
+          <div class="check">&#x2713;</div>
+          <div>
+            <h4>Ready-to-Use Embed Codes <span class="bonus-value">$297 value</span></h4>
+            <p>Drop your videos into any platform — WordPress, Kajabi, Circle, or your own site — without figuring out a single technical step yourself.</p>
+          </div>
+        </div>
+        <div class="included-item">
+          <div class="check">&#x2713;</div>
+          <div>
+            <h4>Platform Comparison Guide <span class="bonus-value">$197 value</span></h4>
+            <p>BunnyCDN vs S3 vs Cloudflare Stream — honest cost breakdowns, performance benchmarks, and our recommendation based on your library size.</p>
+          </div>
+        </div>
+        <div class="included-item">
+          <div class="check">&#x2713;</div>
+          <div>
+            <h4>90-Day Post-Migration Support <span class="bonus-value">$497 value</span></h4>
+            <p>Email support for 90 days after migration. Embedding questions, playback issues, platform setup — we're a message away until you're fully settled.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COST COMPARISON -->
+  <section class="comparison">
+    <div class="container">
+      <p class="section-label">The math</p>
+      <h2>Renting vs. owning. You do the math.</h2>
+      <div class="comparison-grid">
+        <div class="comp-card comp-old">
+          <div class="comp-header">
+            <h3>Membership.io</h3>
+            <div class="comp-badge-bad">Renting your own content</div>
+          </div>
+          <div class="comp-price">
+            <span class="price-amount">$99–$199</span>
+            <span class="price-period">/month</span>
+          </div>
+          <ul class="comp-list">
+            <li class="comp-negative">Your content lives on their servers</li>
+            <li class="comp-negative">No easy way to export or leave</li>
+            <li class="comp-negative">You're renting access to your own work</li>
+            <li class="comp-negative">Price goes up, features don't</li>
+            <li class="comp-negative">Leaving gets harder every month</li>
+          </ul>
+          <div class="comp-annual">
+            <strong>$1,188–$2,388/year</strong>
+            <span>for content you don't own</span>
+          </div>
+        </div>
+        <div class="comp-card comp-new">
+          <div class="comp-header">
+            <h3>Your own hosting</h3>
+            <div class="comp-badge-good">Owning your content</div>
+          </div>
+          <div class="comp-price">
+            <span class="price-amount">~$13</span>
+            <span class="price-period">/month</span>
+          </div>
+          <ul class="comp-list">
+            <li class="comp-positive">Your content lives wherever you want</li>
+            <li class="comp-positive">Download, move, or switch anytime</li>
+            <li class="comp-positive">BunnyCDN, S3, Cloudflare — your call</li>
+            <li class="comp-positive">Pay only for what you actually use</li>
+            <li class="comp-positive">Standard video files — no lock-in, ever</li>
+          </ul>
+          <div class="comp-annual">
+            <strong>~$156/year</strong>
+            <span>example: 2.6 TB on BunnyCDN</span>
+          </div>
+        </div>
+      </div>
+      <p class="comparison-note">That's up to <strong>$2,232 saved per year</strong> — and the content is actually yours.</p>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <p class="section-label">Pricing</p>
+      <h2>Pick your library size. Get a fixed price.</h2>
+      <p class="pricing-sub">No hourly billing. No surprises. You know exactly what you'll pay before we start.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-tier">Starter</div>
+          <div class="pricing-amount">$497</div>
+          <div class="pricing-range">Up to 200 videos</div>
+          <ul class="pricing-features">
+            <li>Full video extraction (MP4)</li>
+            <li>Hub &amp; folder structure preserved</li>
+            <li>Playlist ordering intact</li>
+            <li>Migration verification report</li>
+            <li>Delivered to your preferred hosting</li>
+          </ul>
+          <div class="pricing-save">Saves you 40+ hours of manual work</div>
+          <a href="#audit" class="btn btn-ghost btn-full">Get Started</a>
+        </div>
+        <div class="pricing-card pricing-popular">
+          <div class="pricing-badge">Most popular</div>
+          <div class="pricing-tier">Professional</div>
+          <div class="pricing-amount">$997</div>
+          <div class="pricing-range">200 – 1,000 videos</div>
+          <ul class="pricing-features">
+            <li>Everything in Starter</li>
+            <li>Member data export (emails, access levels)</li>
+            <li>Platform comparison guide ($197 value)</li>
+            <li>Ready-to-use embed codes ($297 value)</li>
+            <li>90-day post-migration support ($497 value)</li>
+          </ul>
+          <div class="pricing-save">Saves you 100+ hours of manual work</div>
+          <a href="#audit" class="btn btn-primary btn-full">Get Started</a>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-tier">Enterprise</div>
+          <div class="pricing-amount">$1,997</div>
+          <div class="pricing-range">1,000 – 5,000 videos</div>
+          <ul class="pricing-features">
+            <li>Everything in Professional</li>
+            <li>Priority migration (fastest turnaround)</li>
+            <li>White-glove hosting setup ($497 value)</li>
+            <li>We configure your BunnyCDN/S3 account</li>
+            <li>90-day post-migration support ($497 value)</li>
+          </ul>
+          <div class="pricing-save">Saves you 300+ hours of manual work</div>
+          <a href="#audit" class="btn btn-ghost btn-full">Get Started</a>
+        </div>
+      </div>
+      <p class="pricing-note">5,000+ videos? <a href="#audit">Contact us</a> for custom Enterprise pricing.</p>
+      <div class="pricing-unsure">
+        <p class="pricing-unsure-lead">Not sure how many videos you have?</p>
+        <p>No problem. Fill out the form below and we'll count everything for you — free. We connect to your MIO account, run our automated catalog, and come back with your exact video count, library size, and confirmed tier before you pay anything.</p>
+        <a href="#audit" class="btn btn-ghost">Get Your Free Count</a>
+      </div>
+      <p class="pricing-capacity">We take <strong>5 migrations per month</strong> to ensure quality. Once slots fill, the next opening is 30 days out.</p>
+    </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section class="guarantee">
+    <div class="container">
+      <div class="guarantee-inner">
+        <div class="guarantee-icon">&#x1F6E1;</div>
+        <h2>The "Every Single File" Guarantee</h2>
+        <p>After migration, you get a complete verification report — every file in your MIO account mapped to its new location. If anything is missing, we re-run the entire migration at no additional cost until every last file is accounted for. We don't mark it done until you verify it's right.</p>
+        <p class="guarantee-bold">Our tools don't guess — they verify every transfer against your original library. 10,177 files. 95 hubs. 2.6 TB. Zero files lost.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAILURE / URGENCY -->
+  <section class="urgency">
+    <div class="container">
+      <div class="urgency-inner">
+        <h2>We waited too long to leave. Don't make our mistake.</h2>
+        <div class="urgency-grid">
+          <div class="urgency-item">
+            <div class="urgency-num">$199</div>
+            <p>we paid every month — long after we knew we should leave</p>
+          </div>
+          <div class="urgency-item">
+            <div class="urgency-num">Months</div>
+            <p>of procrastinating because the migration felt impossible</p>
+          </div>
+          <div class="urgency-item">
+            <div class="urgency-num">Ours</div>
+            <p>every video, every playlist — fully in our hands now</p>
+          </div>
+        </div>
+        <a href="#audit" class="btn btn-primary btn-large">Get Your Free Migration Audit</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO THIS IS FOR -->
+  <section class="for-who">
+    <div class="container">
+      <p class="section-label">Is this for you?</p>
+      <h2>Built for course creators who are done renting.</h2>
+      <div class="for-grid">
+        <div class="for-card for-yes">
+          <h3>This is for you if:</h3>
+          <ul>
+            <li>You have 100+ videos on Membership.io and switching feels overwhelming</li>
+            <li>You've decided to move — even though migration is a major amount of work</li>
+            <li>You just need someone to guide you through it</li>
+            <li>You're tired of that level of dependency feeling far too risky</li>
+            <li>You don't want to lose everything you've built</li>
+          </ul>
+        </div>
+        <div class="for-card for-no">
+          <h3>This is NOT for you if:</h3>
+          <ul>
+            <li>You have fewer than 50 videos (DIY might be fine)</li>
+            <li>You're happy on Membership.io and plan to stay</li>
+            <li>You need a full membership platform rebuild (we do extraction, not platform development)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container">
+      <p class="section-label">Questions</p>
+      <h2>Straight answers.</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How long does a migration take?</summary>
+          <p>Depends on library size. A 500-video library typically takes 2-3 days. Larger libraries (2,000+) take about a week. The audit itself takes 24 hours.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Will my members lose access during migration?</summary>
+          <p>No. We run the migration in parallel — your MIO account stays fully active until you're ready to switch. Zero downtime.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Where does my content go?</summary>
+          <p>Wherever you want. Most clients choose BunnyCDN (fast, global, ~$13/mo for terabytes of video) but we can deliver to S3, Cloudflare, your own servers, or any storage you prefer. You get standard MP4 files — they work everywhere.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I still use my existing membership platform after migration?</summary>
+          <p>Yes. Your videos become standard embeddable files that work with any platform — WordPress, Kajabi, Circle, custom sites, or anything that accepts iframe embeds. You're just hosting them on your terms instead of MIO's.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What about my course structure and playlists?</summary>
+          <p>Preserved completely. We recreate your hub/folder hierarchy and document every playlist with exact file ordering. Nothing is lost. You get a complete map of your entire library.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What if something goes wrong?</summary>
+          <p>Your original content stays on MIO untouched throughout the migration. We copy — we never delete. You only cancel MIO when you've verified everything is exactly where you want it.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you need my Membership.io login?</summary>
+          <p>We need admin access to catalog and extract your content — but you never share your password. If you're on MIO's Grow or Scale plan, you simply invite us as a team member. We get our own login, you remove us the moment migration is complete. If you're on the Start plan (which doesn't support team members), we'll send you a secure one-time link to share credentials — it self-destructs after we view it, and you change your password when we're done. Either way, we never touch your billing, delete anything, or modify your live content.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Why can't I just do this myself?</summary>
+          <p>Technically, you can — the same way you could move houses without a moving company. MIO doesn't give you a bulk export. There's no "download everything" button. You'd be downloading files one at a time, rebuilding your folder structure from memory, and hoping you didn't miss anything. We spent months figuring out how to do this properly so you don't have to.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What happens to my content if I cancel Membership.io without exporting first?</summary>
+          <p>It's gone. According to Membership.io's own help docs, data cannot be retrieved once your account is cancelled. That's why you need to export everything <em>before</em> you cancel — and that's exactly what our service does. We make sure every file is safely in your hands before you flip the switch.</p>
+        </details>
+        <details class="faq-item">
+          <summary>I'm on Searchie, not Membership.io — can you still help?</summary>
+          <p>Same platform, different name. Searchie rebranded to Membership.io in 2024. Our tools work with both. If your account is at app.membership.io or app.searchie.io, we've got you covered.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can you migrate me to Kajabi, Circle, or Skool?</summary>
+          <p>We handle the extraction — getting your content out of MIO and into your hands as standard files. From there, you can upload to any platform you choose. We can also deliver directly to video hosting (BunnyCDN, S3, Cloudflare) if you want to self-host and embed into whatever membership platform you land on.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How much does the migration service cost?</summary>
+          <p>Fixed pricing based on library size: $497 for up to 200 videos, $997 for 200–1,000 videos, $1,997 for 1,000–5,000 videos. No hourly billing, no surprises. Libraries over 5,000 videos get custom pricing. <a href="#pricing">See full pricing details.</a></p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / AUDIT FORM -->
+  <section class="cta-section" id="audit">
+    <div class="container">
+      <div class="cta-inner">
+        <h2>Start your migration.</h2>
+        <p>Tell us about your MIO library and we'll confirm your tier, timeline, and exactly what's included. No credit card. No commitment until you're ready.</p>
+        <form class="audit-form" id="auditForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mio-url">Your Membership.io URL <span class="optional">(if you have it handy)</span></label>
+            <input type="text" id="mio-url" name="mio_url" placeholder="https://app.membership.io/... or your site name">
+          </div>
+          <div class="form-group">
+            <label for="video-count">Roughly how much content do you have?</label>
+            <select id="video-count" name="video_count" required>
+              <option value="">Select range...</option>
+              <option value="not-sure">Not sure — help me figure it out</option>
+              <option value="50-200">50 – 200 videos</option>
+              <option value="200-500">200 – 500 videos</option>
+              <option value="500-1000">500 – 1,000 videos</option>
+              <option value="1000-5000">1,000 – 5,000 videos</option>
+              <option value="5000+">5,000+ videos</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="notes">Anything else we should know? <span class="optional">(optional)</span></label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Where you want your content delivered, timeline, current pain points..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large btn-full">Request My Migration Plan</button>
+          <p class="form-disclaimer">We respond within 24 hours. 5 migration slots per month — first come, first served.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="nav-logo">MIO<span>Exit</span></div>
+        <p>The only done-for-you Membership.io export and migration service. Formerly Searchie.</p>
+        <div class="footer-links">
+          <a href="/terms.html">Terms of Service</a>
+          <a href="/privacy.html">Privacy Policy</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 MIOExit. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Form submission — POST to MIOExit API
+    const API_BASE = 'https://api.mioexit.com';
+
+    document.getElementById('auditForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = this.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      // Collect UTM params from URL
+      const params = new URLSearchParams(window.location.search);
+
+      const payload = {
+        name: this.name.value,
+        email: this.email.value,
+        mio_url: this.mio_url.value,
+        video_count: this.video_count.value,
+        notes: this.notes.value,
+        referrer: document.referrer,
+        utm_source: params.get('utm_source') || '',
+        utm_medium: params.get('utm_medium') || '',
+        utm_campaign: params.get('utm_campaign') || '',
+        utm_term: params.get('utm_term') || '',
+        utm_content: params.get('utm_content') || '',
+      };
+
+      fetch(API_BASE + '/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+        .then(res => {
+          if (!res.ok) return res.json().then(d => Promise.reject(d));
+          return res.json();
+        })
+        .then(() => {
+          btn.textContent = 'Audit Requested!';
+          btn.classList.add('btn-success');
+          this.reset();
+        })
+        .catch(err => {
+          console.error('Form error:', err);
+          btn.textContent = originalText;
+          btn.disabled = false;
+          alert('Something went wrong. Please try again or email us at migrate@mioexit.com');
+        });
+    });
+
+    // FAQ toggle accessibility
+    document.querySelectorAll('.faq-item summary').forEach(summary => {
+      summary.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          summary.click();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
