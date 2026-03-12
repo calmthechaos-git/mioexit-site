@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Confirmed — MIOExit</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0a0f;
+      --bg-card: #12121a;
+      --text-primary: #f0f0f5;
+      --text-secondary: #8888a0;
+      --text-muted: #5a5a70;
+      --accent: #6c5ce7;
+      --accent-bright: #a29bfe;
+      --accent-glow: rgba(108, 92, 231, 0.3);
+      --green: #00d2a0;
+      --green-dim: rgba(0, 210, 160, 0.15);
+      --border: rgba(255, 255, 255, 0.06);
+      --border-accent: rgba(108, 92, 231, 0.3);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1140px; margin: 0 auto; padding: 16px 24px;
+      display: flex; justify-content: center; align-items: center;
+    }
+
+    .nav-logo { font-size: 22px; font-weight: 900; color: var(--text-primary); text-decoration: none; }
+    .nav-logo span { color: var(--accent-bright); }
+
+    .success-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 60px;
+    }
+
+    .success-card {
+      max-width: 580px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 80px; height: 80px;
+      margin: 0 auto 32px;
+      background: var(--green-dim);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+      animation: scaleIn 0.4s ease-out;
+    }
+
+    @keyframes scaleIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .success-card h1 {
+      font-size: 36px; font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .success-card .lead {
+      font-size: 18px; color: var(--text-secondary); line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .next-steps {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      text-align: left;
+      margin-bottom: 32px;
+    }
+
+    .next-steps h2 {
+      font-size: 18px; font-weight: 700; margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .step {
+      display: flex; gap: 16px; padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      width: 32px; height: 32px; flex-shrink: 0;
+      background: var(--accent-glow);
+      color: var(--accent-bright);
+      font-size: 14px; font-weight: 800;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .step-content h3 {
+      font-size: 15px; font-weight: 700; margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 14px; color: var(--text-secondary); line-height: 1.5;
+    }
+
+    .nda-callout {
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    .nda-callout p {
+      font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--font); font-size: 14px; font-weight: 700;
+      text-decoration: none; border: none; cursor: pointer;
+      border-radius: 8px; padding: 12px 24px; transition: all 0.2s;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--accent-bright);
+      border: 1px solid var(--border-accent);
+    }
+
+    .btn-ghost:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .confirmation-details {
+      font-size: 13px; color: var(--text-muted); line-height: 1.6;
+    }
+
+    .confirmation-details strong {
+      color: var(--text-secondary);
+    }
+
+    .footer-note {
+      margin-top: 32px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-note a {
+      color: var(--accent-bright);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">MIO<span>Exit</span></a>
+    </div>
+  </nav>
+
+  <div class="success-container">
+    <div class="success-card">
+
+      <div class="success-icon">&#x2713;</div>
+
+      <h1>You're in. Let's get your content out.</h1>
+      <p class="lead">Payment confirmed. We've sent a receipt to <strong id="customerEmail">your email</strong>. Your migration starts now.</p>
+
+      <div class="next-steps">
+        <h2>What happens next</h2>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3>Check your inbox (within 1 hour)</h3>
+            <p>You'll receive a welcome email with your NDA to sign and instructions for granting us access to your MIO account.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3>We run your audit (within 24 hours)</h3>
+            <p>Once we have access, we catalog your entire library — every video, hub, playlist, and member — and send you a detailed report with confirmed counts.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3>Migration begins</h3>
+            <p>We extract everything and transfer it to your chosen hosting. Your MIO account stays fully active the entire time. You'll get a verification report when it's done.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h3>You verify, then cancel MIO</h3>
+            <p>Check the verification report, confirm everything is in place, and cancel Membership.io whenever you're ready. Your content is yours forever.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nda-callout">
+        <p>You can also review our NDA ahead of time if you'd like:</p>
+        <a href="/nda.html" class="btn btn-ghost" target="_blank">View NDA Template</a>
+      </div>
+
+      <div class="confirmation-details" id="confirmationDetails">
+        <!-- Populated by JS -->
+      </div>
+
+      <p class="footer-note">
+        Questions? Email us at <a href="mailto:migrate@mioexit.com">migrate@mioexit.com</a>
+      </p>
+
+    </div>
+  </div>
+
+  <script>
+    const TIER_NAMES = {
+      starter: 'Starter ($497)',
+      professional: 'Professional ($997)',
+      enterprise: 'Enterprise ($1,997)',
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const email = params.get('email');
+    const name = params.get('name');
+    const tier = params.get('tier');
+
+    if (email) {
+      document.getElementById('customerEmail').textContent = email;
+    }
+
+    const details = [];
+    if (name) details.push(`<strong>Name:</strong> ${name}`);
+    if (tier && TIER_NAMES[tier]) details.push(`<strong>Tier:</strong> ${TIER_NAMES[tier]}`);
+    details.push(`<strong>Guarantee:</strong> Every Single File — or we re-run free`);
+
+    if (details.length > 0) {
+      document.getElementById('confirmationDetails').innerHTML = details.join(' &nbsp;&bull;&nbsp; ');
+    }
+  </script>
+
+</body>
+</html>

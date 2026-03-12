@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — MIOExit Migration Service</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    :root {
+      --bg-dark: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a27;
+      --bg-accent: #15152a;
+      --text-primary: #f0f0f5;
+      --text-secondary: #8888a0;
+      --text-muted: #5a5a70;
+      --accent: #6c5ce7;
+      --accent-bright: #a29bfe;
+      --accent-glow: rgba(108, 92, 231, 0.3);
+      --green: #00d2a0;
+      --green-dim: rgba(0, 210, 160, 0.15);
+      --red: #ff6b6b;
+      --red-dim: rgba(255, 107, 107, 0.12);
+      --orange: #ffa726;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-accent: rgba(108, 92, 231, 0.3);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1140px; margin: 0 auto; padding: 16px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 22px; font-weight: 900; color: var(--text-primary);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent-bright); }
+
+    .nav-back {
+      font-size: 14px; color: var(--text-muted); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--text-primary); }
+
+    /* Layout */
+    .checkout-layout {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 100px 24px 60px;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Order Summary (left) */
+    .order-summary {
+      position: sticky;
+      top: 100px;
+    }
+
+    .section-label {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2px; color: var(--accent-bright); margin-bottom: 16px;
+    }
+
+    .order-summary h1 {
+      font-size: 32px; font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .order-subtitle {
+      color: var(--text-secondary); font-size: 16px; margin-bottom: 32px;
+    }
+
+    /* Tier Selector */
+    .tier-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .tier-option {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .tier-option:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: var(--bg-card-hover);
+    }
+
+    .tier-option.selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+
+    .tier-option.popular::after {
+      content: 'Most popular';
+      position: absolute;
+      top: -10px;
+      right: 16px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 10px;
+      border-radius: 100px;
+    }
+
+    .tier-radio {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid var(--text-muted); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .tier-option.selected .tier-radio {
+      border-color: var(--accent);
+    }
+
+    .tier-option.selected .tier-radio::after {
+      content: '';
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .tier-info { flex: 1; }
+
+    .tier-name {
+      font-size: 16px; font-weight: 700;
+    }
+
+    .tier-desc {
+      font-size: 13px; color: var(--text-secondary); margin-top: 2px;
+    }
+
+    .tier-price {
+      font-size: 24px; font-weight: 800; letter-spacing: -1px;
+      white-space: nowrap;
+    }
+
+    /* Order details */
+    .order-details {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .order-line {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0;
+      font-size: 14px;
+    }
+
+    .order-line .label { color: var(--text-secondary); }
+    .order-line .value { font-weight: 600; }
+
+    .order-divider {
+      height: 1px; background: var(--border); margin: 8px 0;
+    }
+
+    .order-total {
+      font-size: 18px;
+      padding-top: 12px;
+    }
+
+    .order-total .value {
+      font-weight: 800;
+      font-size: 22px;
+      color: var(--accent-bright);
+    }
+
+    .order-includes {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .order-includes h4 {
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--text-muted); margin-bottom: 12px;
+    }
+
+    .order-includes li {
+      font-size: 13px; color: var(--text-secondary);
+      padding: 4px 0 4px 20px; position: relative; list-style: none;
+    }
+
+    .order-includes li::before {
+      content: '\2713'; position: absolute; left: 0;
+      color: var(--green); font-weight: 700; font-size: 12px;
+    }
+
+    /* Guarantee strip */
+    .guarantee-strip {
+      display: flex; align-items: center; gap: 12px;
+      margin-top: 24px;
+      padding: 16px;
+      background: var(--green-dim);
+      border-radius: var(--radius);
+      font-size: 13px; color: var(--green); font-weight: 600;
+    }
+
+    .guarantee-strip .shield { font-size: 20px; }
+
+    /* Payment Form (right) */
+    .payment-form-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+    }
+
+    .payment-form-container h2 {
+      font-size: 20px; font-weight: 700; margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block; font-size: 14px; font-weight: 600;
+      color: var(--text-primary); margin-bottom: 8px;
+    }
+
+    .form-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%; font-family: var(--font); font-size: 15px;
+      padding: 12px 16px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .form-group input::placeholder { color: var(--text-muted); }
+
+    /* Stripe Elements container */
+    .stripe-element {
+      padding: 14px 16px;
+      background: var(--bg-dark);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .stripe-element--focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .stripe-element--invalid {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px var(--red-dim);
+    }
+
+    /* Pay Button */
+    .btn-pay {
+      display: flex; align-items: center; justify-content: center;
+      width: 100%;
+      font-family: var(--font);
+      font-size: 17px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--accent);
+      border: none;
+      border-radius: 10px;
+      padding: 16px 32px;
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 0 30px var(--accent-glow);
+      margin-top: 8px;
+    }
+
+    .btn-pay:hover:not(:disabled) {
+      background: #5a4bd6;
+      box-shadow: 0 0 50px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-pay:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-pay.processing {
+      position: relative;
+      color: transparent;
+    }
+
+    .btn-pay.processing::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .btn-pay.success {
+      background: var(--green);
+      box-shadow: 0 0 30px rgba(0, 210, 160, 0.3);
+      color: #fff;
+    }
+
+    /* Error message */
+    .payment-error {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: var(--red-dim);
+      border: 1px solid rgba(255, 107, 107, 0.3);
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--red);
+    }
+
+    .payment-error.visible { display: block; }
+
+    /* Security badges */
+    .security-badges {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .badge {
+      font-size: 12px; color: var(--text-muted);
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    .badge svg {
+      width: 14px; height: 14px; fill: var(--text-muted);
+    }
+
+    /* Fine print */
+    .fine-print {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .fine-print a {
+      color: var(--accent-bright);
+      text-decoration: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      .checkout-layout {
+        grid-template-columns: 1fr;
+        padding-top: 80px;
+      }
+      .order-summary { position: static; }
+    }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+      .payment-form-container { padding: 24px; }
+      .tier-option { padding: 16px; }
+      .tier-price { font-size: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">MIO<span>Exit</span></a>
+      <a href="/" class="nav-back">&larr; Back to MIOExit</a>
+    </div>
+  </nav>
+
+  <div class="checkout-layout">
+
+    <!-- LEFT: Order Summary -->
+    <div class="order-summary">
+      <p class="section-label">Checkout</p>
+      <h1>Membership.io Migration</h1>
+      <p class="order-subtitle">Select your tier and complete payment to start your migration.</p>
+
+      <!-- Tier Selector -->
+      <div class="tier-selector">
+        <div class="tier-option" data-tier="starter" data-price="497" data-name="Starter">
+          <div class="tier-radio"></div>
+          <div class="tier-info">
+            <div class="tier-name">Starter</div>
+            <div class="tier-desc">Up to 200 videos</div>
+          </div>
+          <div class="tier-price">$497</div>
+        </div>
+
+        <div class="tier-option popular" data-tier="professional" data-price="997" data-name="Professional">
+          <div class="tier-radio"></div>
+          <div class="tier-info">
+            <div class="tier-name">Professional</div>
+            <div class="tier-desc">200 - 1,000 videos</div>
+          </div>
+          <div class="tier-price">$997</div>
+        </div>
+
+        <div class="tier-option" data-tier="enterprise" data-price="1997" data-name="Enterprise">
+          <div class="tier-radio"></div>
+          <div class="tier-info">
+            <div class="tier-name">Enterprise</div>
+            <div class="tier-desc">1,000 - 5,000 videos</div>
+          </div>
+          <div class="tier-price">$1,997</div>
+        </div>
+      </div>
+
+      <!-- Order breakdown -->
+      <div class="order-details">
+        <div class="order-line">
+          <span class="label">Migration service</span>
+          <span class="value" id="lineItemPrice">$997</span>
+        </div>
+        <div class="order-line">
+          <span class="label">Tier</span>
+          <span class="value" id="lineItemTier">Professional</span>
+        </div>
+        <div class="order-divider"></div>
+        <div class="order-line order-total">
+          <span class="label">Total</span>
+          <span class="value" id="orderTotal">$997</span>
+        </div>
+
+        <div class="order-includes">
+          <h4>Includes</h4>
+          <ul id="includesList">
+            <li>Full video extraction (MP4)</li>
+            <li>Hub &amp; folder structure preserved</li>
+            <li>Playlist ordering intact</li>
+            <li>Migration verification report</li>
+            <li>Member data export</li>
+            <li>Platform comparison guide</li>
+            <li>Ready-to-use embed codes</li>
+            <li>90-day post-migration support</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="guarantee-strip">
+        <span class="shield">&#x1F6E1;</span>
+        <span>"Every Single File" Guarantee — if anything is missing, we re-run free.</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: Payment Form -->
+    <div class="payment-form-container">
+      <h2>Payment details</h2>
+
+      <form id="paymentForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First name</label>
+            <input type="text" id="firstName" placeholder="Jane" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last name</label>
+            <input type="text" id="lastName" placeholder="Smith" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="jane@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Business name <span style="color: var(--text-muted); font-weight: 400;">(optional)</span></label>
+          <input type="text" id="company" placeholder="Your business or course name">
+        </div>
+
+        <div class="form-group">
+          <label>Card</label>
+          <div id="card-element" class="stripe-element"></div>
+        </div>
+
+        <button type="submit" class="btn-pay" id="payButton">
+          Pay $997
+        </button>
+
+        <div class="payment-error" id="paymentError"></div>
+      </form>
+
+      <div class="security-badges">
+        <span class="badge">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          SSL Encrypted
+        </span>
+        <span class="badge">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V6h16v12z"/></svg>
+          Powered by Stripe
+        </span>
+      </div>
+
+      <p class="fine-print">
+        By completing this purchase you agree to our
+        <a href="/terms.html" target="_blank">Terms of Service</a>.
+        We'll email your migration plan within 24 hours.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    // ── Config ──
+    const STRIPE_PK = 'pk_live_51TAGNXGqLKwMHYzuXxuBU1kL4Zw7eSalMIe7DC25lO0yMzQEdgKhc1i9PoUjXkPB4tjfF5KlqoVVQDZASHWdYW6700gUdAonnA';
+    const API_BASE = 'https://api.mioexit.com';
+
+    // ── Tier Data ──
+    const TIERS = {
+      starter: {
+        name: 'Starter',
+        price: 497,
+        includes: [
+          'Full video extraction (MP4)',
+          'Hub & folder structure preserved',
+          'Playlist ordering intact',
+          'Migration verification report',
+          'Delivered to your preferred hosting',
+        ],
+      },
+      professional: {
+        name: 'Professional',
+        price: 997,
+        includes: [
+          'Full video extraction (MP4)',
+          'Hub & folder structure preserved',
+          'Playlist ordering intact',
+          'Migration verification report',
+          'Member data export',
+          'Platform comparison guide',
+          'Ready-to-use embed codes',
+          '90-day post-migration support',
+        ],
+      },
+      enterprise: {
+        name: 'Enterprise',
+        price: 1997,
+        includes: [
+          'Full video extraction (MP4)',
+          'Hub & folder structure preserved',
+          'Playlist ordering intact',
+          'Migration verification report',
+          'Member data export',
+          'Platform comparison guide',
+          'Ready-to-use embed codes',
+          'Priority migration (fastest turnaround)',
+          'White-glove hosting setup',
+          'BunnyCDN/S3 configuration',
+          '90-day post-migration support',
+        ],
+      },
+    };
+
+    let selectedTier = 'professional';
+
+    // ── Stripe Init ──
+    const stripe = Stripe(STRIPE_PK);
+    const elements = stripe.elements({
+      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap' }],
+    });
+
+    const cardElement = elements.create('card', {
+      style: {
+        base: {
+          color: '#f0f0f5',
+          fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif',
+          fontSize: '15px',
+          fontSmoothing: 'antialiased',
+          '::placeholder': { color: '#5a5a70' },
+        },
+        invalid: {
+          color: '#ff6b6b',
+          iconColor: '#ff6b6b',
+        },
+      },
+    });
+
+    cardElement.mount('#card-element');
+
+    // Style the card element container on focus/blur
+    cardElement.on('focus', () => {
+      document.getElementById('card-element').classList.add('stripe-element--focus');
+    });
+    cardElement.on('blur', () => {
+      document.getElementById('card-element').classList.remove('stripe-element--focus');
+    });
+    cardElement.on('change', (event) => {
+      const el = document.getElementById('card-element');
+      if (event.error) {
+        el.classList.add('stripe-element--invalid');
+      } else {
+        el.classList.remove('stripe-element--invalid');
+      }
+    });
+
+    // ── Tier Selection ──
+    function selectTier(tier) {
+      selectedTier = tier;
+      const data = TIERS[tier];
+
+      // Update radio buttons
+      document.querySelectorAll('.tier-option').forEach(el => {
+        el.classList.toggle('selected', el.dataset.tier === tier);
+      });
+
+      // Update order summary
+      document.getElementById('lineItemPrice').textContent = `$${data.price.toLocaleString()}`;
+      document.getElementById('lineItemTier').textContent = data.name;
+      document.getElementById('orderTotal').textContent = `$${data.price.toLocaleString()}`;
+
+      // Update includes list
+      const list = document.getElementById('includesList');
+      list.innerHTML = data.includes.map(item => `<li>${item}</li>`).join('');
+
+      // Update pay button
+      document.getElementById('payButton').textContent = `Pay $${data.price.toLocaleString()}`;
+    }
+
+    document.querySelectorAll('.tier-option').forEach(el => {
+      el.addEventListener('click', () => selectTier(el.dataset.tier));
+    });
+
+    // Pre-select from URL param
+    const urlParams = new URLSearchParams(window.location.search);
+    const tierParam = urlParams.get('tier');
+    if (tierParam && TIERS[tierParam]) {
+      selectTier(tierParam);
+    } else {
+      selectTier('professional');
+    }
+
+    // Pre-fill email from URL param
+    const emailParam = urlParams.get('email');
+    if (emailParam) {
+      document.getElementById('email').value = emailParam;
+    }
+
+    // ── Payment Submission ──
+    const form = document.getElementById('paymentForm');
+    const payBtn = document.getElementById('payButton');
+    const errorEl = document.getElementById('paymentError');
+
+    function showError(message) {
+      errorEl.textContent = message;
+      errorEl.classList.add('visible');
+    }
+
+    function hideError() {
+      errorEl.classList.remove('visible');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideError();
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const company = document.getElementById('company').value.trim();
+
+      if (!firstName || !lastName || !email) {
+        showError('Please fill in all required fields.');
+        return;
+      }
+
+      payBtn.disabled = true;
+      payBtn.classList.add('processing');
+
+      try {
+        // 1. Create PaymentIntent on backend
+        const res = await fetch(`${API_BASE}/api/create-payment-intent`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tier: selectedTier,
+            email: email,
+            name: `${firstName} ${lastName}`,
+            company: company,
+          }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || 'Failed to initialize payment. Please try again.');
+        }
+
+        const { client_secret } = await res.json();
+
+        // 2. Confirm payment with Stripe
+        const { error, paymentIntent } = await stripe.confirmCardPayment(client_secret, {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: `${firstName} ${lastName}`,
+              email: email,
+            },
+          },
+          receipt_email: email,
+        });
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        if (paymentIntent.status === 'succeeded') {
+          // Success!
+          payBtn.classList.remove('processing');
+          payBtn.classList.add('success');
+          payBtn.textContent = 'Payment Successful!';
+
+          // Redirect to success page
+          setTimeout(() => {
+            const params = new URLSearchParams({
+              tier: selectedTier,
+              email: email,
+              name: `${firstName} ${lastName}`,
+            });
+            window.location.href = `/checkout-success.html?${params.toString()}`;
+          }, 1500);
+        }
+
+      } catch (err) {
+        payBtn.disabled = false;
+        payBtn.classList.remove('processing');
+        payBtn.textContent = `Pay $${TIERS[selectedTier].price.toLocaleString()}`;
+        showError(err.message);
+      }
+    });
+  </script>
+
+</body>
+</html>

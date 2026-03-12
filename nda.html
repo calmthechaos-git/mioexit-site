@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mutual Non-Disclosure Agreement — MIOExit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0a0f;
+      --bg-card: #12121a;
+      --text-primary: #f0f0f5;
+      --text-secondary: #8888a0;
+      --text-muted: #5a5a70;
+      --accent: #6c5ce7;
+      --accent-bright: #a29bfe;
+      --accent-glow: rgba(108, 92, 231, 0.3);
+      --border: rgba(255, 255, 255, 0.06);
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 800px; margin: 0 auto; padding: 16px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    .nav-logo { font-size: 22px; font-weight: 900; color: var(--text-primary); text-decoration: none; }
+    .nav-logo span { color: var(--accent-bright); }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 120px 32px 80px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 36px 0 12px;
+      color: var(--accent-bright);
+    }
+
+    p, li {
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    ol {
+      padding-left: 24px;
+    }
+
+    ol li {
+      margin-bottom: 16px;
+    }
+
+    .fill-in {
+      display: inline-block;
+      border-bottom: 1px solid var(--text-muted);
+      min-width: 200px;
+      padding: 0 4px;
+      color: var(--accent-bright);
+      font-weight: 500;
+    }
+
+    .signature-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .sig-party h3 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent-bright);
+      margin-bottom: 24px;
+    }
+
+    .sig-line {
+      border-bottom: 1px solid var(--text-muted);
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+      min-height: 32px;
+    }
+
+    .sig-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .download-bar {
+      margin-top: 48px;
+      padding: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .download-bar p {
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .btn-print {
+      display: inline-block;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--accent);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-print:hover { background: #5a4bd6; }
+
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .footer p { font-size: 12px; color: var(--text-muted); }
+    .footer a { color: var(--accent-bright); text-decoration: none; }
+
+    @media print {
+      body { background: #fff; color: #111; font-size: 12pt; }
+      .nav, .download-bar, .footer { display: none; }
+      .container { padding: 0; max-width: 100%; }
+      h1, h2 { color: #111; }
+      h2 { color: #333; }
+      p, li { color: #333; }
+      .fill-in { color: #111; border-color: #999; }
+      .sig-party h3 { color: #333; }
+      .sig-line { border-color: #999; }
+      .sig-label { color: #666; }
+      .signature-block { border-color: #ccc; }
+    }
+
+    @media (max-width: 600px) {
+      .signature-block { grid-template-columns: 1fr; gap: 32px; }
+      .container { padding: 100px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">MIO<span>Exit</span></a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <h1>Mutual Non-Disclosure Agreement</h1>
+    <p class="subtitle">Effective Date: <span class="fill-in">&nbsp;</span></p>
+
+    <p>This Mutual Non-Disclosure Agreement ("Agreement") is entered into by and between:</p>
+
+    <p><strong>Party A ("Service Provider"):</strong> MIOExit, operated by Raising Superkids LLC<br>
+    Contact: migrate@mioexit.com</p>
+
+    <p><strong>Party B ("Client"):</strong> <span class="fill-in">&nbsp;</span><br>
+    Contact: <span class="fill-in">&nbsp;</span></p>
+
+    <p>Collectively referred to as the "Parties."</p>
+
+    <h2>1. Purpose</h2>
+    <p>The Parties wish to explore a business relationship involving the migration of digital content from Membership.io (or Searchie) to Client-designated hosting. In the course of this engagement, each Party may disclose confidential information to the other. This Agreement protects that information.</p>
+
+    <h2>2. Definition of Confidential Information</h2>
+    <p>"Confidential Information" means any non-public information disclosed by either Party, including but not limited to:</p>
+    <ol>
+      <li><strong>Client's Confidential Information:</strong> Membership.io account credentials, member data (emails, names, access levels, subscription status), video content, course structure, folder organization, playlist ordering, business processes, and any other content or data accessible through the Client's account.</li>
+      <li><strong>Service Provider's Confidential Information:</strong> Proprietary migration tools, scripts, processes, technical methods, pricing models, and business operations.</li>
+    </ol>
+    <p>Confidential Information does not include information that: (a) is or becomes publicly available through no fault of the receiving Party; (b) was already known to the receiving Party prior to disclosure; (c) is independently developed without use of the disclosing Party's Confidential Information; or (d) is required to be disclosed by law.</p>
+
+    <h2>3. Obligations</h2>
+    <p>Each Party agrees to:</p>
+    <ol>
+      <li>Use the other Party's Confidential Information solely for the purpose of performing or evaluating the migration service.</li>
+      <li>Not disclose Confidential Information to any third party without prior written consent.</li>
+      <li>Protect Confidential Information with at least the same degree of care used to protect its own confidential information, and in no event less than reasonable care.</li>
+      <li>Limit access to Confidential Information to those individuals who need to know and who are bound by obligations of confidentiality.</li>
+    </ol>
+
+    <h2>4. Account Access &amp; Credential Handling</h2>
+    <p>The Service Provider acknowledges and agrees that:</p>
+    <ol>
+      <li>Account access will be obtained through one of two methods: (a) a team member invitation on MIO Grow/Scale plans, or (b) a secure one-time credential sharing link for Start plans.</li>
+      <li>The Service Provider will never access billing, payment, or subscription settings.</li>
+      <li>The Service Provider will never delete, modify, or alter any existing content on the Client's account.</li>
+      <li>The Service Provider will only perform read-only operations (cataloging, downloading) unless explicitly authorized in writing.</li>
+      <li>Upon completion of the migration, the Service Provider will: remove their team member access (or confirm removal by the Client), and delete any locally stored credentials.</li>
+    </ol>
+
+    <h2>5. Data Handling &amp; Retention</h2>
+    <ol>
+      <li>All extracted content (videos, files, member data) will be delivered to the Client's designated hosting or storage.</li>
+      <li>The Service Provider will not retain copies of the Client's content or member data beyond 30 days after migration completion, except as needed for the verification guarantee period.</li>
+      <li>Transfer state logs (mapping MIO file IDs to new locations) may be retained for up to 90 days to support the post-migration guarantee, after which they will be deleted.</li>
+      <li>The Client's member data (emails, access levels) will be handled in compliance with applicable privacy laws and delivered only to the Client.</li>
+    </ol>
+
+    <h2>6. Term &amp; Termination</h2>
+    <p>This Agreement is effective from the date above and remains in effect for two (2) years from the date of disclosure of any Confidential Information. Either Party may terminate this Agreement with 30 days' written notice, but termination does not release either Party from obligations regarding Confidential Information already disclosed.</p>
+
+    <h2>7. No License or Obligation</h2>
+    <p>Nothing in this Agreement grants either Party any rights to the other Party's intellectual property. Neither Party is obligated to proceed with the migration service or any other business relationship.</p>
+
+    <h2>8. Remedies</h2>
+    <p>Each Party acknowledges that a breach of this Agreement may cause irreparable harm for which monetary damages would be inadequate. Accordingly, either Party may seek equitable relief (including injunction) in addition to any other available remedies.</p>
+
+    <h2>9. General Provisions</h2>
+    <ol>
+      <li>This Agreement constitutes the entire agreement between the Parties regarding confidentiality and supersedes any prior agreements on this subject.</li>
+      <li>This Agreement may not be amended except in writing signed by both Parties.</li>
+      <li>This Agreement shall be governed by the laws of the State of <span class="fill-in">&nbsp;</span>.</li>
+      <li>If any provision is found to be unenforceable, the remaining provisions shall remain in full force and effect.</li>
+    </ol>
+
+    <div class="signature-block">
+      <div class="sig-party">
+        <h3>Service Provider</h3>
+        <div class="sig-line"></div>
+        <p class="sig-label">Signature</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Printed Name</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Title</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Date</p>
+      </div>
+      <div class="sig-party">
+        <h3>Client</h3>
+        <div class="sig-line"></div>
+        <p class="sig-label">Signature</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Printed Name</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Title</p>
+        <div class="sig-line"></div>
+        <p class="sig-label">Date</p>
+      </div>
+    </div>
+
+    <div class="download-bar">
+      <p>Print or save this page as PDF for signing.</p>
+      <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2026 MIOExit. <a href="/">Back to Home</a> | <a href="/terms.html">Terms</a> | <a href="/privacy.html">Privacy</a></p>
+  </footer>
+
+</body>
+</html>
