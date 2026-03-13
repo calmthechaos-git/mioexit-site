@@ -539,6 +539,13 @@
           <div id="card-element" class="stripe-element"></div>
         </div>
 
+        <div class="form-group" style="margin-top: 8px;">
+          <label class="checkbox-label" style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+            <input type="checkbox" id="tosCheckbox" required style="margin-top: 3px; accent-color: var(--accent); min-width: 16px;">
+            <span>I agree to the <a href="/terms.html" target="_blank" style="color: var(--accent-bright);">Terms of Service</a> and understand the <a href="/terms.html#refund" target="_blank" style="color: var(--accent-bright);">refund policy</a>: full refund if we can't extract at least 80% of your video library.</span>
+          </label>
+        </div>
+
         <button type="submit" class="btn-pay" id="payButton">
           Pay $997
         </button>
@@ -726,6 +733,11 @@
 
       if (!firstName || !lastName || !email) {
         showError('Please fill in all required fields.');
+        return;
+      }
+
+      if (!document.getElementById('tosCheckbox').checked) {
+        showError('Please agree to the Terms of Service to continue.');
         return;
       }
 

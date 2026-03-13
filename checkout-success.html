@@ -12,6 +12,7 @@
     :root {
       --bg-dark: #0a0a0f;
       --bg-card: #12121a;
+      --bg-input: #0d0d14;
       --text-primary: #f0f0f5;
       --text-secondary: #8888a0;
       --text-muted: #5a5a70;
@@ -20,8 +21,11 @@
       --accent-glow: rgba(108, 92, 231, 0.3);
       --green: #00d2a0;
       --green-dim: rgba(0, 210, 160, 0.15);
+      --red: #ff4757;
+      --red-dim: rgba(255, 71, 87, 0.15);
       --border: rgba(255, 255, 255, 0.06);
       --border-accent: rgba(108, 92, 231, 0.3);
+      --border-input: rgba(255, 255, 255, 0.1);
       --radius: 12px;
       --radius-lg: 20px;
       --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -37,8 +41,6 @@
       line-height: 1.6;
       font-size: 16px;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
     .nav {
@@ -56,18 +58,17 @@
     .nav-logo { font-size: 22px; font-weight: 900; color: var(--text-primary); text-decoration: none; }
     .nav-logo span { color: var(--accent-bright); }
 
-    .success-container {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    /* ---- Layout ---- */
+    .page-content {
+      max-width: 640px;
+      margin: 0 auto;
       padding: 100px 24px 60px;
     }
 
-    .success-card {
-      max-width: 580px;
-      width: 100%;
+    /* ---- Section 1: Confirmation ---- */
+    .confirmation-header {
       text-align: center;
+      margin-bottom: 48px;
     }
 
     .success-icon {
@@ -76,8 +77,22 @@
       background: var(--green-dim);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 36px;
       animation: scaleIn 0.4s ease-out;
+    }
+
+    .success-icon svg {
+      width: 36px; height: 36px;
+      stroke: var(--green);
+      stroke-width: 3;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .success-icon svg .checkmark-path {
+      stroke-dasharray: 30;
+      stroke-dashoffset: 30;
+      animation: drawCheck 0.4s 0.3s ease-out forwards;
     }
 
     @keyframes scaleIn {
@@ -85,71 +100,162 @@
       to { transform: scale(1); opacity: 1; }
     }
 
-    .success-card h1 {
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .confirmation-header h1 {
       font-size: 36px; font-weight: 800; letter-spacing: -1px;
       margin-bottom: 12px;
     }
 
-    .success-card .lead {
+    .confirmation-header .lead {
       font-size: 18px; color: var(--text-secondary); line-height: 1.7;
-      margin-bottom: 40px;
+      margin-bottom: 24px;
     }
 
-    .next-steps {
+    .confirmation-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 24px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .confirmation-bar strong {
+      color: var(--text-secondary);
+    }
+
+    /* ---- Shared Section Styles ---- */
+    .section-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 32px;
-      text-align: left;
+      padding: 36px 32px;
       margin-bottom: 32px;
     }
 
-    .next-steps h2 {
-      font-size: 18px; font-weight: 700; margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .step {
-      display: flex; gap: 16px; padding: 14px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .step:last-child { border-bottom: none; }
-
-    .step-num {
-      width: 32px; height: 32px; flex-shrink: 0;
-      background: var(--accent-glow);
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       color: var(--accent-bright);
-      font-size: 14px; font-weight: 800;
-      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .step-badge .badge-num {
+      width: 24px; height: 24px;
+      background: var(--accent-glow);
+      border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800;
     }
 
-    .step-content h3 {
-      font-size: 15px; font-weight: 700; margin-bottom: 4px;
+    .section-card h2 {
+      font-size: 22px; font-weight: 800; letter-spacing: -0.5px;
+      margin-bottom: 8px;
     }
 
-    .step-content p {
-      font-size: 14px; color: var(--text-secondary); line-height: 1.5;
+    .section-card .section-sub {
+      font-size: 15px; color: var(--text-secondary); line-height: 1.6;
+      margin-bottom: 28px;
     }
 
-    .nda-callout {
+    /* ---- Form Styles ---- */
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .form-group .helper-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      font-family: var(--font);
+      font-size: 15px;
+      color: var(--text-primary);
+      background: var(--bg-input);
+      border: 1px solid var(--border-input);
+      border-radius: 8px;
+      padding: 12px 16px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .form-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%238888a0' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    .form-select option {
       background: var(--bg-card);
-      border: 1px solid var(--border-accent);
-      border-radius: var(--radius);
-      padding: 24px;
-      margin-bottom: 32px;
+      color: var(--text-primary);
     }
 
-    .nda-callout p {
-      font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
     }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      font-family: var(--font); font-size: 14px; font-weight: 700;
+      font-family: var(--font); font-size: 15px; font-weight: 700;
       text-decoration: none; border: none; cursor: pointer;
-      border-radius: 8px; padding: 12px 24px; transition: all 0.2s;
+      border-radius: 8px; padding: 14px 28px; transition: all 0.2s;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #5a4bd4;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .btn-ghost {
@@ -164,16 +270,145 @@
       border-color: var(--accent);
     }
 
-    .confirmation-details {
-      font-size: 13px; color: var(--text-muted); line-height: 1.6;
+    .form-success {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--green-dim);
+      border: 1px solid rgba(0, 210, 160, 0.3);
+      border-radius: 8px;
+      color: var(--green);
+      font-size: 15px;
+      font-weight: 700;
+      width: 100%;
     }
 
-    .confirmation-details strong {
+    .form-error {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: var(--red-dim);
+      border: 1px solid rgba(255, 71, 87, 0.3);
+      border-radius: 8px;
+      color: var(--red);
+      font-size: 14px;
+    }
+
+    .btn-spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ---- Calendly Section ---- */
+    .calendly-placeholder {
+      border: 2px dashed var(--border-input);
+      border-radius: var(--radius);
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .calendly-placeholder p { margin-bottom: 8px; }
+    .calendly-placeholder p:last-child { margin-bottom: 0; }
+
+    .calendly-fallback a {
+      color: var(--accent-bright);
+      text-decoration: none;
+    }
+
+    .calendly-fallback a:hover { text-decoration: underline; }
+
+    /* ---- Expandable ---- */
+    .expandable {
+      margin-top: 24px;
+    }
+
+    .expandable-trigger {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 600;
       color: var(--text-secondary);
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    .expandable-trigger:hover { color: var(--text-primary); }
+
+    .expandable-trigger .chevron {
+      width: 16px; height: 16px;
+      transition: transform 0.2s;
+    }
+
+    .expandable-trigger.open .chevron {
+      transform: rotate(180deg);
+    }
+
+    .expandable-body {
+      display: none;
+      padding: 16px 0 0 4px;
+    }
+
+    .expandable-body.show {
+      display: block;
+    }
+
+    .expandable-body ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .expandable-body li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      padding: 4px 0 4px 20px;
+      position: relative;
+    }
+
+    .expandable-body li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 12px;
+      width: 6px; height: 6px;
+      background: var(--accent-bright);
+      border-radius: 50%;
+    }
+
+    /* ---- NDA + Footer ---- */
+    .nda-callout {
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .nda-callout p {
+      font-size: 14px; color: var(--text-secondary); margin-bottom: 12px;
     }
 
     .footer-note {
-      margin-top: 32px;
+      text-align: center;
+      margin-top: 8px;
       font-size: 13px;
       color: var(--text-muted);
     }
@@ -181,6 +416,16 @@
     .footer-note a {
       color: var(--accent-bright);
       text-decoration: none;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 600px) {
+      .page-content { padding: 88px 16px 40px; }
+      .confirmation-header h1 { font-size: 28px; }
+      .confirmation-header .lead { font-size: 16px; }
+      .section-card { padding: 28px 20px; }
+      .section-card h2 { font-size: 20px; }
+      .confirmation-bar { flex-direction: column; gap: 4px; }
     }
   </style>
 </head>
@@ -192,90 +437,234 @@
     </div>
   </nav>
 
-  <div class="success-container">
-    <div class="success-card">
+  <div class="page-content">
 
-      <div class="success-icon">&#x2713;</div>
-
+    <!-- Section 1: Confirmation -->
+    <div class="confirmation-header">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24">
+          <path class="checkmark-path" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
       <h1>You're in. Let's get your content out.</h1>
       <p class="lead">Payment confirmed. We've sent a receipt to <strong id="customerEmail">your email</strong>. Your migration starts now.</p>
-
-      <div class="next-steps">
-        <h2>What happens next</h2>
-
-        <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <h3>Check your inbox (within 1 hour)</h3>
-            <p>You'll receive a welcome email with your NDA to sign and instructions for granting us access to your MIO account.</p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <h3>We run your audit (within 24 hours)</h3>
-            <p>Once we have access, we catalog your entire library — every video, hub, playlist, and member — and send you a detailed report with confirmed counts.</p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <h3>Migration begins</h3>
-            <p>We extract everything and transfer it to your chosen hosting. Your MIO account stays fully active the entire time. You'll get a verification report when it's done.</p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="step-num">4</div>
-          <div class="step-content">
-            <h3>You verify, then cancel MIO</h3>
-            <p>Check the verification report, confirm everything is in place, and cancel Membership.io whenever you're ready. Your content is yours forever.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="nda-callout">
-        <p>You can also review our NDA ahead of time if you'd like:</p>
-        <a href="/nda.html" class="btn btn-ghost" target="_blank">View NDA Template</a>
-      </div>
-
-      <div class="confirmation-details" id="confirmationDetails">
-        <!-- Populated by JS -->
-      </div>
-
-      <p class="footer-note">
-        Questions? Email us at <a href="mailto:migrate@mioexit.com">migrate@mioexit.com</a>
-      </p>
-
+      <div class="confirmation-bar" id="confirmationBar"></div>
     </div>
+
+    <!-- Section 2: Migration Form -->
+    <div class="section-card">
+      <div class="step-badge">
+        <div class="badge-num">1</div>
+        Step 1
+      </div>
+      <h2>Tell Us About Your Library</h2>
+      <p class="section-sub">Fill this out now so we can hit the ground running on your kickoff call.</p>
+
+      <form id="onboardingForm" novalidate>
+        <input type="hidden" name="email" id="formEmail">
+        <input type="hidden" name="name" id="formName">
+        <input type="hidden" name="tier" id="formTier">
+
+        <div class="form-group">
+          <label for="mioUrl">Your Membership.io URL</label>
+          <input type="text" id="mioUrl" name="mio_url" class="form-input" placeholder="yoursite.membership.io" required>
+          <p class="helper-text">The URL where your members access your content</p>
+        </div>
+
+        <div class="form-group">
+          <label for="destination">Where should we deliver your videos?</label>
+          <select id="destination" name="destination" class="form-select" required>
+            <option value="" disabled selected>Select a destination...</option>
+            <option value="bunnycdn">BunnyCDN (Recommended — we set it up for you)</option>
+            <option value="amazon-s3">Amazon S3 (you provide bucket details)</option>
+            <option value="google-drive">Google Drive (we share a folder)</option>
+            <option value="hard-drive">Ship files on a hard drive</option>
+            <option value="not-sure">Not sure — help me decide on our call</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="timeline">When do you need this done?</label>
+          <select id="timeline" name="timeline" class="form-select" required>
+            <option value="" disabled selected>Select timeline...</option>
+            <option value="asap">ASAP — as fast as possible</option>
+            <option value="2-weeks">Within 2 weeks</option>
+            <option value="30-days">Within 30 days</option>
+            <option value="no-rush">No rush — whenever you get to it</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Anything else we should know?</label>
+          <textarea id="notes" name="notes" class="form-textarea" rows="3" placeholder="Special requirements, concerns, questions..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <span class="btn-spinner" id="submitSpinner"></span>
+          <span id="submitText">Submit Migration Details</span>
+        </button>
+        <div class="form-success" id="formSuccess">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+          Submitted!
+        </div>
+        <div class="form-error" id="formError"></div>
+      </form>
+    </div>
+
+    <!-- Section 3: Book Kickoff Call -->
+    <div class="section-card">
+      <div class="step-badge">
+        <div class="badge-num">2</div>
+        Step 2
+      </div>
+      <h2>Book Your 15-Minute Kickoff Call</h2>
+      <p class="section-sub">We'll walk you through the NDA, get your MIO access set up, and answer any questions.</p>
+
+      <!-- Uncomment when Calendly URL is ready:
+      <div class="calendly-inline-widget" data-url="https://calendly.com/REPLACE_WITH_URL" style="min-width:320px;height:630px;"></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+      -->
+
+      <div class="calendly-placeholder" id="calendlyEmbed">
+        <p>Calendly scheduling widget will be embedded here</p>
+        <p class="calendly-fallback">Or email us at <a href="mailto:migrate@mioexit.com">migrate@mioexit.com</a> to schedule</p>
+      </div>
+
+      <div class="expandable">
+        <button type="button" class="expandable-trigger" id="callInfoToggle">
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          What happens on the call?
+        </button>
+        <div class="expandable-body" id="callInfoBody">
+          <ul>
+            <li>Sign the NDA (takes 2 minutes)</li>
+            <li>Set up your MIO team access (we walk you through it)</li>
+            <li>Confirm your destination and timeline</li>
+            <li>Answer any questions you have</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- NDA Callout -->
+    <div class="nda-callout">
+      <p>You can review our NDA ahead of time if you'd like:</p>
+      <a href="/nda.html" class="btn btn-ghost" target="_blank">View NDA Template</a>
+    </div>
+
+    <!-- Footer -->
+    <p class="footer-note">
+      Questions? Email us at <a href="mailto:migrate@mioexit.com">migrate@mioexit.com</a>
+    </p>
+
   </div>
 
   <script>
+    const API_BASE = 'https://api.mioexit.com';
+
     const TIER_NAMES = {
       starter: 'Starter ($497)',
       professional: 'Professional ($997)',
       enterprise: 'Enterprise ($1,997)',
     };
 
+    // Parse URL params
     const params = new URLSearchParams(window.location.search);
-    const email = params.get('email');
-    const name = params.get('name');
-    const tier = params.get('tier');
+    const email = params.get('email') || '';
+    const name = params.get('name') || '';
+    const tier = params.get('tier') || '';
 
+    // Populate confirmation
     if (email) {
       document.getElementById('customerEmail').textContent = email;
     }
 
-    const details = [];
-    if (name) details.push(`<strong>Name:</strong> ${name}`);
-    if (tier && TIER_NAMES[tier]) details.push(`<strong>Tier:</strong> ${TIER_NAMES[tier]}`);
-    details.push(`<strong>Guarantee:</strong> Every Single File — or we re-run free`);
+    const barParts = [];
+    if (name) barParts.push('<strong>Name:</strong> ' + name);
+    if (tier && TIER_NAMES[tier]) barParts.push('<strong>Tier:</strong> ' + TIER_NAMES[tier]);
+    barParts.push('<strong>Guarantee:</strong> Every Single File — or we re-run free');
+    document.getElementById('confirmationBar').innerHTML = barParts.map(function(p) {
+      return '<span>' + p + '</span>';
+    }).join('');
 
-    if (details.length > 0) {
-      document.getElementById('confirmationDetails').innerHTML = details.join(' &nbsp;&bull;&nbsp; ');
-    }
+    // Pre-fill hidden fields
+    document.getElementById('formEmail').value = email;
+    document.getElementById('formName').value = name;
+    document.getElementById('formTier').value = tier;
+
+    // Expandable toggle
+    document.getElementById('callInfoToggle').addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('callInfoBody').classList.toggle('show');
+    });
+
+    // Form submission
+    var form = document.getElementById('onboardingForm');
+    var submitBtn = document.getElementById('submitBtn');
+    var submitText = document.getElementById('submitText');
+    var submitSpinner = document.getElementById('submitSpinner');
+    var formSuccess = document.getElementById('formSuccess');
+    var formError = document.getElementById('formError');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      formError.style.display = 'none';
+
+      // Validate required fields
+      var mioUrl = document.getElementById('mioUrl').value.trim();
+      var destination = document.getElementById('destination').value;
+      var timeline = document.getElementById('timeline').value;
+
+      if (!mioUrl || !destination || !timeline) {
+        formError.textContent = 'Please fill in all required fields.';
+        formError.style.display = 'block';
+        return;
+      }
+
+      // Disable + show spinner
+      submitBtn.disabled = true;
+      submitSpinner.style.display = 'inline-block';
+      submitText.textContent = 'Submitting...';
+
+      var payload = {
+        email: email,
+        name: name,
+        tier: tier,
+        mio_url: mioUrl,
+        destination: destination,
+        timeline: timeline,
+        notes: document.getElementById('notes').value.trim()
+      };
+
+      fetch(API_BASE + '/api/onboarding', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(res) {
+        if (!res.ok) throw new Error('Server returned ' + res.status);
+        return res.json();
+      })
+      .then(function() {
+        // Success — swap button for success message
+        submitBtn.style.display = 'none';
+        formSuccess.style.display = 'flex';
+
+        // Disable all form fields
+        var fields = form.querySelectorAll('input, select, textarea');
+        for (var i = 0; i < fields.length; i++) {
+          fields[i].disabled = true;
+        }
+      })
+      .catch(function(err) {
+        submitBtn.disabled = false;
+        submitSpinner.style.display = 'none';
+        submitText.textContent = 'Submit Migration Details';
+        formError.textContent = 'Something went wrong. Please try again or email migrate@mioexit.com.';
+        formError.style.display = 'block';
+        console.error('Onboarding submit error:', err);
+      });
+    });
   </script>
 
 </body>
