@@ -102,7 +102,7 @@
     <div class="blog-hero-inner">
       <div class="hero-badge">Migration Guide</div>
       <h1>How to Download Your Entire Video Library from <span class="hero-accent">Membership.io</span></h1>
-      <p>The technical guide that MIO doesn't publish. Every method, every workaround, every gotcha — from a team that has extracted 10,177 files and 2.6 TB of video from the platform.</p>
+      <p>You have hundreds of videos trapped inside Membership.io with no export button in sight. Here's exactly how to get them out — the same process we used to extract 10,177 files without losing a single one.</p>
     </div>
   </header>
 
@@ -124,7 +124,23 @@
 
       <blockquote>"How do I download my own videos from Searchie? I have 200+ videos and I want to move to BunnyCDN but I can't find a way to bulk export."<br><br>— Forum post from a frustrated course creator</blockquote>
 
-      <p>We've migrated libraries ranging from 50 videos to over 5,000. This guide covers every method we know — from the painful manual approach to the automated solution we built after doing this hundreds of times.</p>
+      <p>If you're thinking "I'll just download them this weekend" — read the next section first. Getting the files is only 20% of the problem. The other 80% is what breaks when you do it yourself.</p>
+
+      <h2>What You're Actually Up Against (The Download Trap)</h2>
+
+      <p>Before you spend your weekend in Developer Tools downloading videos one by one — what we call <strong>The Download Trap</strong> — understand what a real migration involves beyond just the files:</p>
+
+      <ul>
+        <li><strong>Your hub structure, folder hierarchy, and playlist ordering?</strong> None of that comes with the video file. You'll be rebuilding it from memory.</li>
+        <li><strong>Your transcripts?</strong> If your members use MIO's AI search, those transcripts need to exist on your new platform too — and they're stored separately from the video.</li>
+        <li><strong>Your member data?</strong> Who has access to what? What are their email addresses? What did they purchase? That data lives in MIO, not in your MP4 files.</li>
+        <li><strong>Every embed link your members bookmarked?</strong> Dead. Broken. 404. The moment your MIO subscription ends.</li>
+        <li><strong>Re-hosting?</strong> Raw MP4 files need to go somewhere — BunnyCDN, Cloudflare Stream, S3 — each with different upload workflows and embed formats.</li>
+      </ul>
+
+      <p>Downloading 500 videos is a weekend project. <strong>Migrating</strong> 500 videos — with their metadata, transcripts, organization, and member access — that's where most people get stuck.</p>
+
+      <p>Still want to try it yourself? Here are the methods, from simplest to most powerful.</p>
 
       <h2>Why Membership.io Makes It Hard to Export</h2>
 
@@ -143,19 +159,7 @@
 
       <h2>Method 1: The Manual Method (One Video at a Time)</h2>
 
-      <p>This works, but it's brutal for anything more than a handful of videos.</p>
-
-      <ol>
-        <li><strong>Log in</strong> to your Membership.io dashboard at <code>app.membership.io</code></li>
-        <li><strong>Navigate</strong> to the specific file you want to download</li>
-        <li><strong>Open the file</strong> in the player view</li>
-        <li><strong>Look for a download option</strong> — some file types (PDFs, images) have a download icon. Videos typically do not.</li>
-        <li>If no download button exists, you'll need Method 2.</li>
-      </ol>
-
-      <div class="callout">
-        <p><strong>Reality check:</strong> If you have 200 videos, this method means repeating this process 200 times. At 2-3 minutes per video (navigate, find, download, rename, organize), you're looking at 7-10 hours of manual work. For 1,000+ videos, it's a multi-day project.</p>
-      </div>
+      <p>Some file types (PDFs, images) have a download icon in the MIO player view. Videos typically don't — which means for most of your library, you'll need Method 2. And even when download buttons exist, there's no way to select multiple files. It's one at a time. At 2-3 minutes per video, 200 videos = 7-10 hours. For 1,000+ videos? Clear your calendar.</p>
 
       <h2>Method 2: Using Developer Tools to Find the Direct URL</h2>
 
@@ -199,40 +203,27 @@
         <p><strong>Warning:</strong> MIO's API has some quirks. Field names changed during the Searchie-to-MIO rebrand (<code>name</code> became <code>title</code>, <code>hashid</code> became <code>hash</code>). Pagination uses <code>perPage</code>, not <code>limit</code>. And the <code>hub_id</code> filter on the audience endpoint is broken — it returns global results regardless of what hub you specify.</p>
       </div>
 
-      <h2>Why "Just Download Them" Isn't the Whole Story</h2>
+      <h2>Skip The Download Trap: The Done-For-You Alternative</h2>
 
-      <p>Getting the video files is only step one. A real migration involves:</p>
-
-      <ul>
-        <li><strong>Preserving organization.</strong> Your hub structure, folder hierarchy, and playlist ordering need to survive the move.</li>
-        <li><strong>Transcriptions.</strong> If you use MIO's AI search (one of its best features), you need those transcripts on your new platform too.</li>
-        <li><strong>Member data.</strong> Who has access to what? What are their email addresses? What did they purchase?</li>
-        <li><strong>Embeds and links.</strong> Every place you've embedded a Searchie video or linked to a hub — those all break the day you cancel.</li>
-        <li><strong>Re-hosting.</strong> Raw MP4 files need to go somewhere. BunnyCDN, Cloudflare Stream, S3, Vimeo — each has different upload workflows and embed formats.</li>
-      </ul>
-
-      <p>Downloading 500 videos is a weekend project. <strong>Migrating</strong> 500 videos — with their metadata, transcripts, organization, and member access — is a different beast entirely.</p>
-
-      <h2>The Automated Alternative: Let Us Handle It</h2>
-
-      <p>We built MIOExit because we went through this process ourselves. 10,177 files. 95 hubs. 2.6 terabytes. We automated every part of it.</p>
-
-      <p>Here's what our migration service includes:</p>
+      <p>We built MIOExit after going through this exact process ourselves — 10,177 files, 95 hubs, 2.6 terabytes. Here's what you get:</p>
 
       <ul>
-        <li><strong>Complete catalog</strong> — We inventory every file, folder, hub, and playlist in your account</li>
-        <li><strong>Bulk extraction</strong> — All videos downloaded as original-quality MP4 files</li>
-        <li><strong>Transcript export</strong> — Every transcription pulled in VTT, SRT, and plain text</li>
-        <li><strong>Organization preserved</strong> — Your folder and playlist structure is replicated exactly</li>
-        <li><strong>Re-hosting</strong> — Files delivered to BunnyCDN, S3, Google Drive, or any destination you choose</li>
-        <li><strong>Verification</strong> — Every file checked. If anything's missing, we re-run the migration free.</li>
+        <li><strong>You'll know exactly what you have</strong> — every video, every transcript, every playlist mapped and cataloged before we touch a single file</li>
+        <li><strong>Your entire library downloaded as standard MP4 files you own forever</strong> — not locked inside someone else's streaming format</li>
+        <li><strong>Every transcription pulled</strong> in VTT, SRT, and plain text — so your members' search experience survives the move</li>
+        <li><strong>Your folder and playlist structure replicated exactly</strong> — no rebuilding from memory</li>
+        <li><strong>Files delivered to the destination you choose</strong> — BunnyCDN, S3, Google Drive, or your own servers</li>
+        <li><strong>If even one file is missing, we re-run the entire extraction at no charge</strong> — this has never happened, but the guarantee stands</li>
       </ul>
+
+      <p>Your total effort: share read-only API credentials, pick a destination, approve the catalog. We do everything else. Most migrations are complete within 72 hours.</p>
 
       <!-- CTA -->
       <div class="blog-cta">
-        <h3>Don't spend your weekend downloading videos one at a time.</h3>
-        <p>Get a free migration audit — we'll catalog your entire MIO account and tell you exactly what it takes to leave.</p>
+        <h3>Get every video, transcript, and playlist out of MIO — without touching a single file yourself.</h3>
+        <p>Your free Migration Audit includes a complete inventory of every file in your account, your total storage in GB, and your estimated savings on BunnyCDN. Delivered within 24 hours. No commitment, no sales call.</p>
         <a href="/#audit" class="btn btn-primary btn-large">Request Free Audit</a>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:16px;margin-bottom:0">We take on 5 new migrations per month. Every video you upload to MIO between now and then makes the job bigger.</p>
       </div>
 
       <h2>Frequently Asked Questions</h2>
