@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mioexit.com/sitemap.xml
+
+# Block checkout and success pages from indexing
+Disallow: /checkout.html
+Disallow: /checkout-success.html

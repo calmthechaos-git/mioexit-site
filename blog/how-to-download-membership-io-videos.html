@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Download Your Entire Video Library from Membership.io (Searchie) | MIOExit</title>
+  <meta name="description" content="Step-by-step guide to downloading all your videos from Membership.io (formerly Searchie). Manual method, developer tools, and bulk export alternatives for course creators.">
+  <meta name="keywords" content="download searchie videos, how to export membership.io videos, searchie video downloader, save searchie videos, membership.io bulk export, download membership.io content">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="How to Download Your Entire Video Library from Membership.io">
+  <meta property="og:description" content="The complete guide to getting your videos out of Membership.io. Manual method, dev tools, and bulk alternatives.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mioexit.com/blog/how-to-download-membership-io-videos.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="article:published_time" content="2026-03-14">
+
+  <link rel="canonical" href="https://mioexit.com/blog/how-to-download-membership-io-videos.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- HowTo Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Download Your Entire Video Library from Membership.io",
+    "description": "A step-by-step guide to downloading all your videos from Membership.io (formerly Searchie), including manual, developer tools, and automated methods.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Navigate to your file in Membership.io",
+        "text": "Log in to app.membership.io, navigate to the file you want to download, and open it in the player view."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Open Developer Tools",
+        "text": "Right-click anywhere on the page and select 'Inspect' or press F12 to open your browser's developer tools. Go to the Network tab."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Filter for video files",
+        "text": "In the Network tab filter box, type '.mp4' or '.m3u8'. Refresh the page. You will see the video URL appear in the network requests."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Download the video file",
+        "text": "Copy the .mp4 URL from the network request and paste it into a new browser tab. The video will begin downloading as a standard MP4 file."
+      }
+    ],
+    "totalTime": "PT5M"
+  }
+  </script>
+
+  <!-- Article Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Download Your Entire Video Library from Membership.io (Searchie)",
+    "description": "Step-by-step guide to downloading all your videos from Membership.io, including the manual method, developer tools approach, and automated bulk alternatives.",
+    "author": {
+      "@type": "Organization",
+      "name": "MIOExit"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "MIOExit"
+    },
+    "datePublished": "2026-03-14",
+    "mainEntityOfPage": "https://mioexit.com/blog/how-to-download-membership-io-videos.html"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" style="text-decoration:none"><div class="nav-logo">MIO<span>Exit</span></div></a>
+      <div class="nav-links">
+        <a href="/blog/" class="nav-link">Blog</a>
+        <a href="/#pricing" class="nav-cta">See Pricing</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMBS -->
+  <div class="breadcrumbs">
+    <a href="/">Home</a>
+    <span>/</span>
+    <a href="/blog/">Blog</a>
+    <span>/</span>
+    <span class="current">Download Membership.io Videos</span>
+  </div>
+
+  <!-- BLOG HERO -->
+  <header class="blog-hero" style="padding-top:24px">
+    <div class="blog-hero-inner">
+      <div class="hero-badge">Migration Guide</div>
+      <h1>How to Download Your Entire Video Library from <span class="hero-accent">Membership.io</span></h1>
+      <p>The technical guide that MIO doesn't publish. Every method, every workaround, every gotcha — from a team that has extracted 10,177 files and 2.6 TB of video from the platform.</p>
+    </div>
+  </header>
+
+  <!-- ARTICLE -->
+  <article class="blog-article">
+    <div class="blog-article-inner">
+
+      <div class="blog-meta">
+        <span>March 14, 2026</span>
+        <span>&middot;</span>
+        <span>8 min read</span>
+        <span>&middot;</span>
+        <span>By the MIOExit team</span>
+      </div>
+
+      <p>Here's what nobody tells you when you sign up for Membership.io (formerly Searchie): <strong>there is no bulk export button.</strong></p>
+
+      <p>You can upload thousands of videos to their platform. You can organize them into hubs, playlists, and folders. You can pay $99/month (or more) for years. But when you decide to leave? You're on your own.</p>
+
+      <blockquote>"How do I download my own videos from Searchie? I have 200+ videos and I want to move to BunnyCDN but I can't find a way to bulk export."<br><br>— Forum post from a frustrated course creator</blockquote>
+
+      <p>We've migrated libraries ranging from 50 videos to over 5,000. This guide covers every method we know — from the painful manual approach to the automated solution we built after doing this hundreds of times.</p>
+
+      <h2>Why Membership.io Makes It Hard to Export</h2>
+
+      <p>Let's be direct: Membership.io does not offer a "Download All" or "Export Library" feature. This isn't an accident. Like most SaaS platforms, the harder it is to leave, the longer you stay.</p>
+
+      <p>Here's what you're working with:</p>
+
+      <ul>
+        <li><strong>No bulk download.</strong> You cannot select multiple files and download them as a ZIP.</li>
+        <li><strong>No API export endpoint.</strong> Their API lets you read file metadata but doesn't provide direct download URLs for the original video files.</li>
+        <li><strong>HLS streaming only.</strong> Videos are served via .m3u8 HLS streams (adaptive bitrate), not as simple .mp4 links — which makes right-click-save impossible.</li>
+        <li><strong>No data portability page.</strong> Unlike Google Takeout or Facebook's "Download Your Data," MIO has no export-your-content feature.</li>
+      </ul>
+
+      <p>The good news? Every .m3u8 stream has a .mp4 sibling sitting on the same CDN. You just need to know where to look.</p>
+
+      <h2>Method 1: The Manual Method (One Video at a Time)</h2>
+
+      <p>This works, but it's brutal for anything more than a handful of videos.</p>
+
+      <ol>
+        <li><strong>Log in</strong> to your Membership.io dashboard at <code>app.membership.io</code></li>
+        <li><strong>Navigate</strong> to the specific file you want to download</li>
+        <li><strong>Open the file</strong> in the player view</li>
+        <li><strong>Look for a download option</strong> — some file types (PDFs, images) have a download icon. Videos typically do not.</li>
+        <li>If no download button exists, you'll need Method 2.</li>
+      </ol>
+
+      <div class="callout">
+        <p><strong>Reality check:</strong> If you have 200 videos, this method means repeating this process 200 times. At 2-3 minutes per video (navigate, find, download, rename, organize), you're looking at 7-10 hours of manual work. For 1,000+ videos, it's a multi-day project.</p>
+      </div>
+
+      <h2>Method 2: Using Developer Tools to Find the Direct URL</h2>
+
+      <p>This is the method most tech-savvy creators discover on their own. It works because Membership.io serves video through a CDN, and the CDN URLs are accessible if you know where to look.</p>
+
+      <h3>Step-by-step:</h3>
+
+      <ol>
+        <li><strong>Open the video</strong> in Membership.io's player</li>
+        <li><strong>Open Developer Tools</strong> — Right-click → Inspect (or press F12)</li>
+        <li><strong>Go to the Network tab</strong></li>
+        <li><strong>Filter for <code>.mp4</code></strong> — Type ".mp4" in the filter box</li>
+        <li><strong>Refresh the page</strong> — The video will reload and you'll see CDN requests appear</li>
+        <li><strong>Find the .mp4 URL</strong> — Look for a request to a CDN domain (usually containing "searchie" or "membership" in the hostname)</li>
+        <li><strong>Copy that URL</strong> and paste it into a new tab — the video will download</li>
+      </ol>
+
+      <p>The key insight: every HLS stream (.m3u8) on MIO has a corresponding .mp4 file. The URL pattern is predictable — swap the extension and you get the full-resolution original file.</p>
+
+      <div class="callout">
+        <p><strong>Pro tip:</strong> CDN URLs on Membership.io are public. They don't require authentication to access. Once you have the URL, you can download the file from any browser, any device, anytime. The URLs don't expire.</p>
+      </div>
+
+      <h2>Method 3: API-Assisted Extraction (Semi-Automated)</h2>
+
+      <p>If you're comfortable with code, you can use MIO's API to enumerate your files and then download them programmatically.</p>
+
+      <p>Here's the general approach:</p>
+
+      <ol>
+        <li><strong>Get your API token</strong> from your Membership.io account settings</li>
+        <li><strong>List all files</strong> using <code>GET /api/v1/files/</code> — this returns metadata including file hashes</li>
+        <li><strong>Construct CDN URLs</strong> from the file metadata — each file's hash maps to a CDN path</li>
+        <li><strong>Download each file</strong> using the constructed URL — standard HTTP GET, no auth needed</li>
+        <li><strong>Organize by folder/hub</strong> using the metadata from the API response</li>
+      </ol>
+
+      <p>The API paginates results (typically 20-50 per page), so you'll need to handle pagination for larger libraries. Fields you'll want: <code>title</code>, <code>hash</code>, <code>folder_id</code>, <code>size_bytes</code>, and <code>created_at</code>.</p>
+
+      <div class="callout">
+        <p><strong>Warning:</strong> MIO's API has some quirks. Field names changed during the Searchie-to-MIO rebrand (<code>name</code> became <code>title</code>, <code>hashid</code> became <code>hash</code>). Pagination uses <code>perPage</code>, not <code>limit</code>. And the <code>hub_id</code> filter on the audience endpoint is broken — it returns global results regardless of what hub you specify.</p>
+      </div>
+
+      <h2>Why "Just Download Them" Isn't the Whole Story</h2>
+
+      <p>Getting the video files is only step one. A real migration involves:</p>
+
+      <ul>
+        <li><strong>Preserving organization.</strong> Your hub structure, folder hierarchy, and playlist ordering need to survive the move.</li>
+        <li><strong>Transcriptions.</strong> If you use MIO's AI search (one of its best features), you need those transcripts on your new platform too.</li>
+        <li><strong>Member data.</strong> Who has access to what? What are their email addresses? What did they purchase?</li>
+        <li><strong>Embeds and links.</strong> Every place you've embedded a Searchie video or linked to a hub — those all break the day you cancel.</li>
+        <li><strong>Re-hosting.</strong> Raw MP4 files need to go somewhere. BunnyCDN, Cloudflare Stream, S3, Vimeo — each has different upload workflows and embed formats.</li>
+      </ul>
+
+      <p>Downloading 500 videos is a weekend project. <strong>Migrating</strong> 500 videos — with their metadata, transcripts, organization, and member access — is a different beast entirely.</p>
+
+      <h2>The Automated Alternative: Let Us Handle It</h2>
+
+      <p>We built MIOExit because we went through this process ourselves. 10,177 files. 95 hubs. 2.6 terabytes. We automated every part of it.</p>
+
+      <p>Here's what our migration service includes:</p>
+
+      <ul>
+        <li><strong>Complete catalog</strong> — We inventory every file, folder, hub, and playlist in your account</li>
+        <li><strong>Bulk extraction</strong> — All videos downloaded as original-quality MP4 files</li>
+        <li><strong>Transcript export</strong> — Every transcription pulled in VTT, SRT, and plain text</li>
+        <li><strong>Organization preserved</strong> — Your folder and playlist structure is replicated exactly</li>
+        <li><strong>Re-hosting</strong> — Files delivered to BunnyCDN, S3, Google Drive, or any destination you choose</li>
+        <li><strong>Verification</strong> — Every file checked. If anything's missing, we re-run the migration free.</li>
+      </ul>
+
+      <!-- CTA -->
+      <div class="blog-cta">
+        <h3>Don't spend your weekend downloading videos one at a time.</h3>
+        <p>Get a free migration audit — we'll catalog your entire MIO account and tell you exactly what it takes to leave.</p>
+        <a href="/#audit" class="btn btn-primary btn-large">Request Free Audit</a>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Can I download Membership.io videos on mobile?</h3>
+      <p>Not easily. The developer tools method requires a desktop browser. The manual method works on mobile for some file types, but video downloads are inconsistent on iOS and Android.</p>
+
+      <h3>Will Membership.io know I'm downloading my files?</h3>
+      <p>The CDN downloads don't trigger any notifications in your MIO dashboard. Your account remains active and unaffected throughout the process.</p>
+
+      <h3>How long does it take to download a large library?</h3>
+      <p>Depends on your internet speed and library size. A 500-video library (roughly 250 GB) takes about 2-3 days to download manually. Our automated process handles the same library in under 24 hours.</p>
+
+      <h3>What format are the downloaded files?</h3>
+      <p>Standard MP4 (H.264). These play everywhere — every browser, every device, every video hosting platform. No conversion needed.</p>
+
+      <h3>What happens to my account after I download everything?</h3>
+      <p>Nothing changes. Your MIO account stays fully active. We always recommend keeping your account live until your new hosting is set up and tested. Only cancel after you've verified everything migrated successfully.</p>
+
+    </div>
+  </article>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="/" style="text-decoration:none"><div class="nav-logo">MIO<span>Exit</span></div></a>
+        <p>The only done-for-you Membership.io export and migration service. Formerly Searchie.</p>
+        <div class="footer-links">
+          <a href="/blog/">Blog</a>
+          <a href="/terms.html">Terms of Service</a>
+          <a href="/privacy.html">Privacy Policy</a>
+          <a href="/nda.html">NDA Template</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 MIOExit. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

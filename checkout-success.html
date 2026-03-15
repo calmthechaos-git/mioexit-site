@@ -309,26 +309,33 @@
       to { transform: rotate(360deg); }
     }
 
-    /* ---- Calendly Section ---- */
-    .calendly-placeholder {
-      border: 2px dashed var(--border-input);
+    /* ---- Booking Section ---- */
+    .booking-embed {
       border-radius: var(--radius);
-      padding: 48px 24px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .booking-embed iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: var(--radius);
+    }
+
+    .booking-fallback {
       text-align: center;
-      color: var(--text-muted);
       font-size: 14px;
+      color: var(--text-muted);
       line-height: 1.6;
     }
 
-    .calendly-placeholder p { margin-bottom: 8px; }
-    .calendly-placeholder p:last-child { margin-bottom: 0; }
-
-    .calendly-fallback a {
+    .booking-fallback a {
       color: var(--accent-bright);
       text-decoration: none;
     }
 
-    .calendly-fallback a:hover { text-decoration: underline; }
+    .booking-fallback a:hover { text-decoration: underline; }
 
     /* ---- Expandable ---- */
     .expandable {
@@ -520,15 +527,13 @@
       <h2>Book Your 15-Minute Kickoff Call</h2>
       <p class="section-sub">We'll walk you through the NDA, get your MIO access set up, and answer any questions.</p>
 
-      <!-- Uncomment when Calendly URL is ready:
-      <div class="calendly-inline-widget" data-url="https://calendly.com/REPLACE_WITH_URL" style="min-width:320px;height:630px;"></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-      -->
-
-      <div class="calendly-placeholder" id="calendlyEmbed">
-        <p>Calendly scheduling widget will be embedded here</p>
-        <p class="calendly-fallback">Or email us at <a href="mailto:migrate@mioexit.com">migrate@mioexit.com</a> to schedule</p>
+      <div class="booking-embed">
+        <iframe src="https://api.calmthechaos.co/book/mioexit-kickoff" loading="lazy" title="Book your kickoff call"></iframe>
       </div>
+      <p class="booking-fallback">
+        Can't see the calendar? <a href="https://api.calmthechaos.co/book/mioexit-kickoff" target="_blank">Book directly here</a>
+        or email us at <a href="mailto:migrate@mioexit.com">migrate@mioexit.com</a>
+      </p>
 
       <div class="expandable">
         <button type="button" class="expandable-trigger" id="callInfoToggle">
